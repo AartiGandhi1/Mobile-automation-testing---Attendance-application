@@ -1,3 +1,29 @@
+import unittest
+from appium import webdriver
+from appium.webdriver.common.appiumby import AppiumBy
+
+
+capabilities = dict(
+    platformName='Android',
+    automationName='uiautomator2',
+    deviceName='Android',
+    appPackage='com.example.aplikasi_absen',
+    appActivity='.StartActivity',
+    language='en',
+    locale='US'
+)
+
+appium_server_url = 'http://localhost:4723'
+
+
+class TestAppium(unittest.TestCase):
+    def setUp(self) -> None:
+        self.driver = webdriver.Remote(appium_server_url, capabilities)
+
+    def tearDown(self) -> None:
+        if self.driver:
+            self.driver.quit()
+
     def testRegistration(self) -> None:
         driver = self.driver
         driver.find_element(by=AppiumBy.ID, value="com.example.aplikasi_absen:id/avStart_card_signup").click()
